@@ -16,7 +16,7 @@ current_difficulty = "Easy"  # Initialize difficulty level
 
 WIDTH = 800
 HEIGHT = 500
-FPS = 10                                               #controls how often the gameDisplay should refresh. In our case, it will refresh every 1/12th second
+FPS = 15                                               #controls how often the gameDisplay should refresh. In our case, it will refresh every 1/12th second
 pygame.init()
 pygame.display.set_caption('Fruit-Ninja Game -- DataFlair')
 gameDisplay = pygame.display.set_mode((WIDTH, HEIGHT))   #setting game display size
@@ -34,7 +34,7 @@ background = pygame.image.load('summer.jpg')                                  #g
 font = pygame.font.Font(os.path.join(os.getcwd(), 'mario.otf'), 42)
 score_text = font.render('Score : ' + str(score), True, (255, 255, 255))    #score display
 lives_icon = pygame.image.load('images/white_lives.png')                    #images that shows remaining lives
-professor_image = pygame.image.load('professor.png')
+professor_image = pygame.image.load('images/professor.png')
 professor_rect = professor_image.get_rect()
 professor_rect.topleft = (20, HEIGHT / 2)
 fruit_facts = [
@@ -185,7 +185,7 @@ def show_theme_selection_screen():
     facts_displayed = [] 
     gameDisplay.blit(background, (0, 0))
 
-    draw_text(gameDisplay, "FRUIT NINJA!", 70, WIDTH / 2, HEIGHT / 5)
+    draw_text(gameDisplay, "NUKE NINJA!", 70, WIDTH / 2, HEIGHT / 5)
     draw_text(gameDisplay, "Select a Theme", 35, WIDTH / 2, HEIGHT / 2 - 45)
 
     # THEME SELECTION BUTTONS
@@ -226,8 +226,9 @@ def show_theme_selection_screen():
 def show_gameover_screen():
 
     gameDisplay.blit(background, (0,0))
-    draw_text(gameDisplay, "FRUIT NINJA!", 70, WIDTH / 2, HEIGHT / 4)
-    draw_text(gameDisplay, "Made by Vanshika & Rahul :)", 20, WIDTH / 2, HEIGHT / 2.4)
+    draw_text(gameDisplay, "NUKE NINJA!", 70, WIDTH / 2, HEIGHT / 4)
+    draw_text(gameDisplay, "Made by Louis, Emre, and Will for E11 S26", 30, WIDTH / 2, HEIGHT / 3)
+    draw_text(gameDisplay, "Special thanks to Vanshika & Rahul :)", 10, WIDTH / 2, HEIGHT / 2)
     if not game_over :
         draw_text(gameDisplay,"Score : " + str(score), 35, WIDTH / 2, HEIGHT /2)
 
