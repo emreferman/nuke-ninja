@@ -1,0 +1,10 @@
+{
+  "start_time": "2026-05-06_15-57-21",
+  "start_epoch": 1778108241.978987,
+  "sensors_activated": [
+    "Radiation"
+  ],
+  "integration_times": [
+    2
+  ]
+}
