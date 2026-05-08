@@ -5,20 +5,20 @@ import pygame
 
 player_lives = 3                                                #keep track of lives
 score = 0                                                       #keeps track of score
-fruits = ['melon', 'orange', 'pomegranate', 'guava', 'bomb']    #entities in the game
+fruits = ['cs137', 'orange', 'uranium', 'bananas', 'nuke']    #entities in the game
 game_duration = 60  # Time limit for each game round in seconds
 current_time = 0   # Initialize the timer to zero  
 fruit_spawn_rate = 0.2  # Initial fruit spawn rate
-bomb_frequency = 0.1   # Initial bomb spawn frequency
+nuke_frequency = 0.1   # Initial nuke spawn frequency
 current_difficulty = "Easy"  # Initialize difficulty level
 
 # INITIALIZING PYGAME WINDOW
 
 WIDTH = 800
 HEIGHT = 500
-FPS = 15                                               #controls how often the gameDisplay should refresh. In our case, it will refresh every 1/12th second
+FPS = 15
 pygame.init()
-pygame.display.set_caption('Fruit-Ninja Game -- DataFlair')
+pygame.display.set_caption('Nuke Ninja Game -- E11 Final Project')
 gameDisplay = pygame.display.set_mode((WIDTH, HEIGHT))   #setting game display size
 clock = pygame.time.Clock()
 
@@ -30,26 +30,23 @@ RED = (255,0,0)
 GREEN = (0,255,0)
 BLUE = (0,0,255)
 
-background = pygame.image.load('summer.jpg')                                  #game background
+background = pygame.image.load('mushroom_cloud.jpg')                                  #game background
 font = pygame.font.Font(os.path.join(os.getcwd(), 'mario.otf'), 42)
 score_text = font.render('Score : ' + str(score), True, (255, 255, 255))    #score display
 lives_icon = pygame.image.load('images/white_lives.png')                    #images that shows remaining lives
 professor_image = pygame.image.load('images/professor.png')
 professor_rect = professor_image.get_rect()
 professor_rect.topleft = (20, HEIGHT / 2)
-fruit_facts = [
-    "Did you know that bananas are berries?",
-    "Grapes can be used to make wine.",
-    "Melons are an excellent choice for staying hydrated.",
-    "Guavas are sometimes called 'the poor man's apple'.",
-    "Each pomegranate can contain hundreds of juicy seeds, known as arils.",
-    "Oranges are a good source of vitamin C.",
-    "Cranberries can bounce!",
-    "Orange trees can live for up to 100 years and continue to produce fruit throughout their long lives.",
-    "Guavas are often referred to as superfruits because of their high nutritional value.",
-    "Pomegranates are known as 'nature's candy' due to their sweet and tart flavor.",
-    "Some oranges can be fully ripe while still green in color.",
-    "The world's heaviest melon on record weighed over 350 pounds!"
+dosage_facts = [
+    "The annual occupational radiation exposure limit is 50 mSv. You'll be fine!",
+    "The average person receives a dose of 3 mSv from environmental sources every year.",
+    "UC Berkeley is the No. 1 public university in the world!",
+    "5 million people are diagnosed with skin cancer every year in the U.S.. Remember to apply sunscreen!",
+    "Radium-infused health products were once quite popular, including beverages and toothpaste.",
+    "Albert Stevens received an accumulated dose of 64 Sv after an experimental injection of plutonium... and lived.",
+    "Radiation hormesis is the idea that small (<100 mSv) radiation doses can actually have health benefits.",
+    "During the famous Demon Core incident, physicist Louis Slotin received a dose of 10 Gy.",
+    "The Therac-25 radiotherapy machine had a bug that resulted in 6 patients being severely irradiated."
 ]
 
 #DISPLAYING RANDOM FRUIT FACTS
@@ -57,16 +54,16 @@ def display_random_fact(facts_displayed):
 
     # Shuffle the facts list to ensure randomness
 
-    random.shuffle(fruit_facts)
+    random.shuffle(dosage_facts)
     fact_font = pygame.font.Font(os.path.join(os.getcwd(), 'mario.otf'), 14)
     text_x = WIDTH // 1.6  # Initial x-coordinate for the text
     text_y = professor_rect.bottom + 0.25  # Position the text below the professor
-    scroll_speed=0.125 # Adjust this value to control the scrolling speed
+    scroll_speed=0.08 # Adjust this value to control the scrolling speed
 
     # A smaller value will slow down the scrolling speed
     # while a larger value will speed it up.
 
-    for fact in fruit_facts:
+    for fact in dosage_facts:
 
         if fact not in facts_displayed:
             # Display the fact
@@ -171,13 +168,13 @@ def draw_lives(display, x, y, lives, image) :
 
 def load_theme_background(theme):
     if theme == "Summer":
-        return pygame.image.load('summer.jpg')
+        return pygame.image.load('mushroom_cloud.jpg')
 
     elif theme == "Winter":
-        return pygame.image.load('winter.jpg')
+        return pygame.image.load('decontamination.jpg')
 
     # Default to summer if theme is not recognized
-    return pygame.image.load('summer.jpg')
+    return pygame.image.load('mushroom_cloud.jpg')
 
 
 
@@ -196,8 +193,8 @@ def show_theme_selection_screen():
     pygame.draw.rect(gameDisplay, GREEN, summer_button)
     pygame.draw.rect(gameDisplay, BLUE, winter_button)
 
-    draw_text(gameDisplay, "Summer", 20, WIDTH / 4 + 75, HEIGHT / 2 + 25)
-    draw_text(gameDisplay, "Winter", 20, 3 * WIDTH / 4 - 75, HEIGHT / 2 + 25)
+    draw_text(gameDisplay, "Ground 0", 20, WIDTH / 4 + 75, HEIGHT / 2 + 25)
+    draw_text(gameDisplay, "Fallout", 20, 3 * WIDTH / 4 - 75, HEIGHT / 2 + 25)
 
     gameDisplay.blit(professor_image, professor_rect)
     pygame.display.flip()
@@ -227,10 +224,10 @@ def show_gameover_screen():
 
     gameDisplay.blit(background, (0,0))
     draw_text(gameDisplay, "NUKE NINJA!", 70, WIDTH / 2, HEIGHT / 4)
-    draw_text(gameDisplay, "Made by Louis, Emre, and Will for E11 S26", 30, WIDTH / 2, HEIGHT / 3)
+    draw_text(gameDisplay, "by Louis, Emre, and Will for E11 S26", 20, WIDTH / 2, HEIGHT / 2.3)
     draw_text(gameDisplay, "Special thanks to Vanshika & Rahul :)", 10, WIDTH / 2, HEIGHT / 2)
     if not game_over :
-        draw_text(gameDisplay,"Score : " + str(score), 35, WIDTH / 2, HEIGHT /2)
+        draw_text(gameDisplay,"Score : " + str(score), 35, WIDTH / 2, HEIGHT /1.75)
 
 
     draw_text(gameDisplay, "Press Enter to begin!", 35, WIDTH / 2, HEIGHT * 3 / 4)
@@ -276,7 +273,7 @@ start_time = pygame.time.get_ticks()
 # MAIN GAME LOOP
 
 first_round = True
-game_over = True        #terminates the game While loop if more than 3-Bombs are cut
+game_over = True        #terminates the game While loop if more than 3 nukes are cut
 game_running = True     #used to manage the game loop
 game_duration = 60
 current_time = 0  
@@ -297,7 +294,7 @@ while game_running:
         player_lives = 3
         score = 0
         fruit_spawn_rate = 0.2  # Reset initial fruit spawn rate
-        bomb_frequency = 0.1   # Reset initial bomb spawn frequency
+        nuke_frequency = 0.1   # Reset initial nuke spawn frequency
         draw_lives(gameDisplay, 690, 5, player_lives, 'images/red_lives.png')
         start_time = pygame.time.get_ticks()
 
@@ -329,7 +326,7 @@ while game_running:
 
     draw_lives(gameDisplay, 690, 5, player_lives, 'images/red_lives.png')
 
-    # Track player performance (you can modify this logic)
+    # Track player performance
     player_accuracy = (score + 1) / (score + 2)
 
     # Adjust game parameters based on player performance
@@ -337,14 +334,14 @@ while game_running:
     if player_accuracy > 0.8:
 
         fruit_spawn_rate = 0.03  # Decrease fruit spawn rate for skilled players
-        bomb_frequency = 0.2  # Increase bomb frequency for skilled players
+        nuke_frequency = 0.2  # Increase nuke frequency for skilled players
         if current_difficulty != "Hard":
             current_difficulty = "Hard"
 
     elif player_accuracy < 0.3:
 
         fruit_spawn_rate = 0.3 # Increase fruit spawn rate for struggling players
-        bomb_frequency = 0.02   # Decrease bomb frequency for struggling players
+        nuke_frequency = 0.02   # Decrease nuke frequency for struggling players
         if current_difficulty != "Easy":
             current_difficulty = "Easy"
 
@@ -372,10 +369,10 @@ while game_running:
 
             current_position = pygame.mouse.get_pos()   #gets the current coordinate (x, y) in pixels of the mouse
 
-            if not value['hit'] and current_position[0] > value['x'] and current_position[0] < value['x']+60 \
-                and current_position[1] > value['y'] and current_position[1] < value['y']+60:
+            if not value['hit'] and current_position[0] > value['x'] and current_position[0] < value['x']+128 \
+                and current_position[1] > value['y'] and current_position[1] < value['y']+128:
 
-                if key == 'bomb':
+                if key == 'nuke':
 
                     player_lives -= 1
 
@@ -388,7 +385,7 @@ while game_running:
                     elif player_lives == 2 :
 
                         hide_cross_lives(760, 15)
-                    #if the user clicks bombs for three time, GAME OVER message should be displayed and the window should be reset
+                    #if the user clicks nukes for three time, GAME OVER message should be displayed and the window should be reset
 
                     if player_lives == 0 :
 
@@ -402,7 +399,7 @@ while game_running:
 
                 value['img'] = pygame.image.load(half_fruit_path)
                 value['speed_x'] += 10
-                if key != 'bomb' :
+                if key != 'nuke' :
                     score += 1
                 score_text = font.render('Score : ' + str(score), True, (255, 255, 255))
                 value['hit'] = True
